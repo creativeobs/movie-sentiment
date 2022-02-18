@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>Movie Reviews Model</title>
+    </head>
+
+    <body>
+
+        <form action="{{ url_for('predict') }}" method="POST">
+          <center>
+              <div class='form_input'>
+                  <h1>MOVIE REVIEW ANALYZER</h1>
+
+                  <textarea id="review" name="review" rows = "10" required autofocus placeholder="Type here ..." ></textarea>
+                  <br><br>
+                  <button type="submit" >PREDICT</button>
+
+                  <h3>
+                    Result: {{prediction_text}}
+                  </h3>
+              </div>
+            </center>
+        </form>
+
+        <div class="footer-dark">
+          <footer>
+            <div class="container">
+              <div class="col item social">
+                <a href="https://www.facebook.com/ruru.fab/" target="_blank"><i class="fa fa-facebook"></i></a>
+                <a href="https://twitter.com/russeljohnevan1"target="_blank"><i class="fa fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/russel-john-evangelista-a5992b221/"target="_blank"><i class="fa fa-linkedin"></i></a>
+                <a href="https://github.com/rurue213" target="_blank"><i class="fa fa-github"></i></a>
+              </div>
+              <p class="copyright">Made by Russel John E.</p>
+            </div>
+          </footer>
+        </div> 
+    </body>
+</html>
+
+
+<style>
+    body{
+      margin: 0;
+      background: url(https://www.universitymagazine.ca/wp-content/uploads/2021/08/How-to-Get-Netflix-For-Free.jpg) no-repeat center center fixed;
+      background-size: cover;
+    }
+    .form_input{
+        margin-top: 3.5%;
+        background-image: linear-gradient(to bottom right, rgba(168, 32, 26, 0.8), rgba(15, 139, 141, 0.8));
+        padding: 2%;
+        border-radius: 20px;
+        display: flex;
+        width: 75%;
+        text-align: center;
+        flex-direction:column;
+        align-items: center;
+        justify-content: center;
+    }
+    .form_input h3{
+      margin-top: 3%;
+      font-family: 'Niconne', cursive;
+      font-size: 1.2em;
+      background-color: rgba(30, 26, 29, 0.9);
+      border-radius: 10px;
+      padding: 2%;
+      color: white;
+    }
+    .form_input h1{
+        color: white;
+        font-size: 50px;
+        font-family: 'Niconne', cursive;
+        font-weight: 700;
+        text-shadow: 5px 5px 0px #eb452b, 
+                  8px 8px 0px #efa032;
+    }
+    .form_input textarea{
+        resize: none;
+        width: 100%;
+    }
+
+    .form_input button:hover::after {
+  animation: 1s glitch;
+  animation-timing-function: steps(2, end);
+}
+
+.form_input textarea{
+    font-family: 'Helveticca';
+    font-size: 24px;
+}
+
+.form_input button, button::after {
+  cursor: pointer;
+  width: 160px;
+  height: 80px;
+  font-size: 30px;
+  font-family: 'Niconne', cursive;
+  background: linear-gradient(45deg, transparent 5%, #FF013C 5%);
+  border: 0;
+  color: #fff;
+  letter-spacing: 3px;
+  line-height: 25px;
+  box-shadow: 6px 0px 0px #00E6F6;
+  outline: transparent;
+  position: relative;
+}
+
+.form_input button::after {
+  --slice-0: inset(50% 50% 50% 50%);
+  --slice-1: inset(80% -6px 0 0);
+  --slice-2: inset(50% -6px 30% 0);
+  --slice-3: inset(10% -6px 85% 0);
+  --slice-4: inset(40% -6px 43% 0);
+  --slice-5: inset(80% -6px 5% 0);
+  content: 'PREDICT';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 3%, #00E6F6 3%, #00E6F6 5%, #FF013C 5%);
+  text-shadow: -3px -3px 0px #F8F005, 3px 3px 0px #00E6F6;
+  clip-path: var(--slice-0);
+}
+
+  .footer-dark {
+    margin-top:  3.6%;
+    color: white;
+    padding: 50px 0;
+    background-color: rgba(23, 33, 33, 0.95);
+    position: relative;
+} 
+
+@media (max-width:767px) {
+    .footer-dark .item:not(.social) {
+        text-align: center;
+        padding-bottom: 20px
+    }
+}
+
+.footer-dark .item.text {
+    margin-bottom: 36px
+}
+
+@media (max-width:767px) {
+    .footer-dark .item.text {
+        margin-bottom: 0
+    }
+}
+
+.footer-dark .item.text p {
+    opacity: 0.6;
+    margin-bottom: 0
+}
+
+.footer-dark .item.social {
+    text-align: center
+}
+
+@media (max-width:991px) {
+    .footer-dark .item.social {
+        text-align: center;
+        margin-top: 20px
+    }
+}
+
+.footer-dark .item.social>a {
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+    margin: 0 8px;
+    color: white;
+    opacity: 0.75
+}
+
+.footer-dark .item.social>a:hover {
+    opacity: 0.9
+}
+
+.footer-dark .copyright {
+    text-align: center;
+    padding-top: 24px;
+    opacity: 0.3;
+    font-size: 18px;
+    margin-bottom: 0;
+    color: white;
+}
+
+
+@keyframes glitch {
+  0% {
+    clip-path: var(--slice-1);
+    transform: translate(-20px, -10px);
+  }
+  10% {
+    clip-path: var(--slice-3);
+    transform: translate(10px, 10px);
+  }
+  20% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 10px);
+  }
+  30% {
+    clip-path: var(--slice-3);
+    transform: translate(0px, 5px);
+  }
+  40% {
+    clip-path: var(--slice-2);
+    transform: translate(-5px, 0px);
+  }
+  50% {
+    clip-path: var(--slice-3);
+    transform: translate(5px, 0px);
+  }
+  60% {
+    clip-path: var(--slice-4);
+    transform: translate(5px, 10px);
+  }
+  70% {
+    clip-path: var(--slice-2);
+    transform: translate(-10px, 10px);
+  }
+  80% {
+    clip-path: var(--slice-5);
+    transform: translate(20px, -10px);
+  }
+  90% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 0px);
+  }
+  100% {
+    clip-path: var(--slice-1);
+    transform: translate(0);
+  }
+
+
+
+</style>
